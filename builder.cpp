@@ -24,7 +24,7 @@ void build(int argc, char* argv[]) {
     }
     else {
         std::string config = "Debug";
-        time_t timeout =  current_time();
+        time_t timeout =  time_now();
         time_t time_spent = 0;
         if (vm.count("timeout")) {
             timeout = vm["timeout"].as<time_t>();
@@ -120,7 +120,7 @@ void create_child(const std::string& command, const time_t& period, int& res) {
 }
 
 void check_time(child& process, const time_t& period) {
-    time_t start = current_time();
+    time_t start = time_now();
 
     while (true) {
         if ((time_now() - start > period) && process.running()) {
@@ -135,7 +135,7 @@ void check_time(child& process, const time_t& period) {
     }
 }
 
-time_t current_time() {
+time_t time_now() {
     return std::chrono::system_clock::to_time_t(
             std::chrono::system_clock::now()
             );
