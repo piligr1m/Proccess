@@ -37,10 +37,11 @@ add_executable(main
 hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(Boost CONFIG REQUIRED system filesystem)
 
+unter_add_package(Boost COMPONENTS system async++)
+find_package(Boost CONFIG REQUIRED system async++)
 
-
-target_link_libraries(main Boost::filesystem)
-
+target_link_libraries(main Boost::async++)
+target_link_libraries(main Boost::async++)
 
 enable_testing()
 add_test(NAME unit_tests COMMAND tests) 
