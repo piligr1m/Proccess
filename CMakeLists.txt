@@ -37,7 +37,7 @@ add_executable(main
 hunter_add_package(Boost COMPONENTS system filesystem)
 find_package(Boost CONFIG REQUIRED system filesystem)
 
-unter_add_package(Boost COMPONENTS system async++)
+hunter_add_package(Boost COMPONENTS system async++)
 find_package(Boost CONFIG REQUIRED system async++)
 
 target_link_libraries(main Boost::async++)
