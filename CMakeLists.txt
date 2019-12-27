@@ -26,10 +26,10 @@ project(Process)
 #find_package(BoostProcess CONFIG REQUIRED)
 hunter_add_package(Async++)
 find_package(Async++ CONFIG REQUIRED)
-hunter_add_package(Boost COMPONENTS program_options system)
+hunter_add_package(Boost COMPONENTS program_options system filesystem)
 #find_package (Threads)
 #find_package (Boost COMPONENTS log_setup)
-find_package(Boost CONFIG REQUIRED program_options system)
+find_package(Boost CONFIG REQUIRED program_options system filesystem)
 
 
 
