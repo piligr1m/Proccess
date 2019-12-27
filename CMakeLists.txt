@@ -40,7 +40,7 @@ find_package(Boost CONFIG REQUIRED system filesystem)
 hunter_add_package(Boost COMPONENTS system async++)
 find_package(Boost CONFIG REQUIRED system async++)
 
-target_link_libraries(main Boost::async++)
+target_link_libraries(main Boost::filesystem)
 target_link_libraries(main Boost::async++)
 
 enable_testing()
