@@ -28,5 +28,5 @@ void create_child(const std::string& command, const time_t& period, int& res);
 
 void check_time(child& process, const time_t& period);
 
-time_t current_time();
+time_t time_now();
 #endif /* Builder_hpp */
