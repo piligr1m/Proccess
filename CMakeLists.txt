@@ -37,7 +37,7 @@ add_library(Log INTERFACE)
 
 
 add_executable(builder
-  ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
+  ${CMAKE_CURRENT_SOURCE_DIR}/sources/builder.cpp
 )
 
 target_include_directories(header
