@@ -18,12 +18,15 @@ HunterGate(
   SHA1 "9a3594a61227967fb92159339ba326701b287b19"
 )
 
+project(builder)
 
-project(boost_process)
+hunter_add_package(Boost COMPONENTS program_options filesystem system regex)
+hunter_add_package(Async++)
+#hunter_add_package(BoostProcess)
+find_package(Async++ CONFIG REQUIRED)
+#find_package(BoostProcess CONFIG REQUIRED)
+find_package(Boost CONFIG REQUIRED program_options filesystem system regex)
 
-
-hunter_add_package(GTest)
-find_package(GTest CONFIG REQUIRED)
 
 add_executable(main
   ${CMAKE_CURRENT_SOURCE_DIR}/sources/builder.cpp
@@ -31,27 +34,7 @@ add_executable(main
 
 
 
+target_link_libraries(builder process Async++::Async++
+            Boost::program_options Boost::filesystem Boost::system Boost::regex)
 
-
-
-hunter_add_package(Boost COMPONENTS system filesystem)
-find_package(Boost CONFIG REQUIRED system filesystem)
-
-hunter_add_package(Boost COMPONENTS system async++)
-find_package(Boost CONFIG REQUIRED system async++)
-
-target_link_libraries(main Boost::filesystem)
-target_link_libraries(main Boost::async++)
-
-enable_testing()
-add_test(NAME unit_tests COMMAND tests) 
-
-if(BUILD_COVERAGE)
-  set(ENABLE_COVERAGE ON CACHE BOOL "Enable coverage build." FORCE)
-  list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-  find_package(codecov)
-  add_coverage(boost_process)
-  add_coverage(tests)
-  list(APPEND LCOV_REMOVE_PATTERNS "'${PROJECT_SOURCE_DIR}/tests/*'")
-  coverage_evaluate()
-endif()
+target_link_libraries(main)
