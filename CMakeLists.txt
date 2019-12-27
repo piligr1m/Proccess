@@ -34,7 +34,6 @@ add_executable(main
 
 
 
-target_link_libraries(builder process Async++::Async++
-            Boost::program_options Boost::filesystem Boost::system Boost::regex)
+
 
 
