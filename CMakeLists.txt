@@ -12,40 +12,38 @@ set(
 )
 
 include("cmake/HunterGate.cmake")
-include_directories(process/include/boost)
-include_directories(process/include)
 
 HunterGate(
   URL "https://github.com/cpp-pm/hunter/archive/v0.23.218.tar.gz"
   SHA1 "9a3594a61227967fb92159339ba326701b287b19"
 )
 
-project(Process)
+project(builder)
 
-#hunter_add_package(BoostProcess)
-#find_package(BoostProcess CONFIG REQUIRED)
+hunter_add_package(Boost COMPONENTS program_options filesystem system regex)
 hunter_add_package(Async++)
+#hunter_add_package(BoostProcess)
 find_package(Async++ CONFIG REQUIRED)
-hunter_add_package(Boost COMPONENTS program_options system filesystem)
-#find_package (Threads)
-#find_package (Boost COMPONENTS log_setup)
-find_package(Boost CONFIG REQUIRED program_options system filesystem)
+#find_package(BoostProcess CONFIG REQUIRED)
+find_package(Boost CONFIG REQUIRED program_options filesystem system regex)
 
-
-
-
-
-add_executable(builder
-  ${CMAKE_CURRENT_SOURCE_DIR}/sources/builder.cpp
+add_library(builder STATIC
+  ${CMAKE_CURRENT_SOURCE_DIR}/builder.cpp
+)
+add_library(process INTERFACE
+)
+add_executable(main
+  ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
 )
 
+target_include_directories(process
+  INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/process/include
+)
+target_include_directories(builder
+  PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
 
+target_link_libraries(builder process Async++::Async++
+            Boost::program_options Boost::filesystem Boost::system Boost::regex)
 
-
-#target_include_directories(picosha2
- # INTERFACE $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include>
-  #          $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-
-#target_link_libraries(main PUBLIC BoostProcess::boost_process)
-target_link_libraries(builder Boost::program_options Async++::Async++ Boost::system)
-target_link_libraries(builder)
+target_link_libraries(main builder)
