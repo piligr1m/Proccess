@@ -32,20 +32,14 @@ hunter_add_package(Boost COMPONENTS program_options system)
 find_package(Boost CONFIG REQUIRED program_options system)
 
 
-add_library(header INTERFACE)
-add_library(Log INTERFACE)
+
 
 
 add_executable(builder
   ${CMAKE_CURRENT_SOURCE_DIR}/sources/builder.cpp
 )
 
-target_include_directories(header
-  INTERFACE $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include>
-            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
-target_include_directories(Log
-  INTERFACE $<BUILD_INTERFACE:${${PROJECT_NAME}_SOURCE_DIR}/include>
-            $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
+
 
 
 #target_include_directories(picosha2
@@ -54,5 +48,4 @@ target_include_directories(Log
 
 #target_link_libraries(main PUBLIC BoostProcess::boost_process)
 target_link_libraries(builder Boost::program_options Async++::Async++ Boost::system)
-#target_link_libraries(header INTERFACE picosha2 Log ${CMAKE_THREAD_LIBS_INIT})
-target_link_libraries(builder header)
+target_link_libraries(builder)
