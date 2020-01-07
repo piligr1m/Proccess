@@ -6,7 +6,7 @@ namespace
     const size_t ERROR_UNHANDLED_EXCEPTION = 2;
 }
 
-void build(int argc, char* argv[]) {
+int build(int argc, char* argv[]) {
 options_description desc("Allowed options");
     desc.add_options()
         ("help", "выводим вспомогательное сообщение")
@@ -80,7 +80,7 @@ options_description desc("Allowed options");
         }
 
     }
-}
+
 
 catch (boost::program_options::error & e) {
         std::cerr << "ERROR: " << std::endl << std::endl;
