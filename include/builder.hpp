@@ -17,7 +17,7 @@ using namespace boost::process;
 using namespace boost::process::extend;
 using namespace boost::program_options;
 
-void build(int argc, char* argv[]);
+int build(int argc, char* argv[]);
 void create_child(const std::string& command, const time_t& period);
 void create_child(const std::string& command, const time_t& period, int& res);
 void check_time(child& process, const time_t& period);
