@@ -55,7 +55,7 @@ options_description desc("Allowed options");
                     command_1, command_2]() mutable {
                         time_t start_1 = time_now();
 
-                        create_child(command_1, timeout);
+                        create_child_thread(command_1, timeout);
                         time_t end_1 = time_now();
 
                         time_spent += end_1 - start_1;
@@ -80,8 +80,6 @@ options_description desc("Allowed options");
         }
 
     }
-
-
 catch (boost::program_options::error & e) {
         std::cerr << "ERROR: " << std::endl << std::endl;
         std::cerr << desc << std::endl;
@@ -95,7 +93,7 @@ catch (boost::program_options::error & e) {
 
 }
 
-void create_child(const std::string& command, const time_t& period) {
+void create_child_thread(const std::string& command, const time_t& period) {
 std::string line;
 ipstream out;
 
@@ -110,7 +108,7 @@ checkTime.join();
 }
 
 
-void create_child(const std::string& command, const time_t& period, int& res) {
+void create_child_thread(const std::string& command, const time_t& period, int& res) {
 std::string line;
 ipstream out;
 
@@ -153,10 +151,11 @@ int Prob(std::string command1, int& res, time_t& timeout, time_t& time_spent) {
 time_t period = timeout - time_spent;
 time_t start = time_now();
 
-create_child(command1, period, res);
+create_child_thread(command1, period, res);
 time_t end = time_now();
 time_spent += end - start;
 
 return res;
 }
+
 
